@@ -2,6 +2,7 @@ package com.advantej.ndksample;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,6 +13,8 @@ public class MainActivity extends Activity {
         System.loadLibrary("MyLib");
     }
 
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +24,15 @@ public class MainActivity extends Activity {
 
         Helper helper = new Helper(getApplicationContext()); // Pass the app context coz activity can die
         helper.doAwesomeTask("someTaskArg");
+
+
+        NativeLib nativeLib = new NativeLib();
+        long foo = nativeLib.testCppReturnLong(99);
+        Log.d(TAG, "Long value returned : " + foo);
+
+        String bar = nativeLib.testCppReturnString();
+        Log.d(TAG, "String value returned : " + bar);
+
     }
 
 
@@ -45,6 +57,7 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 //    private native String getStringFromNative();
 //
